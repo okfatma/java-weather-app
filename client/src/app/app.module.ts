@@ -10,12 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherComponent
+    WeatherComponent,
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,

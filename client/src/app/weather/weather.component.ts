@@ -39,12 +39,19 @@ export class WeatherComponent implements OnInit {
   getCities() {
     this.cityService.getCities().subscribe(data => {
       this.cities = data;
-      this.city = this.cities[0].name;
+      if(this.cities) {
+        this.city = this.cities[0].name;
+      }
       this.getWeather();
     });
   }
 
   getWeather(): void {
+    if(!this.city) {
+      console.error("İl seçiniz");
+      return;
+    }
+
     this.weatherService.getWeather(this.city, this.unit).subscribe(data => {
       this.weather = data;
     });

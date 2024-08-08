@@ -30,6 +30,12 @@ services:
       DB_CONNECTION_URL: jdbc:postgresql://weather-db:5432/weatherdb?currentSchema=weather
       WEATHER_API_KEY: ${WEATHER_API_KEY}
 
+  angular-app:
+    build: ./client
+    container_name: weather-app-client
+    ports:
+      - "4200:80"
+
 volumes:
   weatherdb:
     driver: local

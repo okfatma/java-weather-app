@@ -3,7 +3,7 @@
   <div class="col-4 col-offset-2">
     <div class="field flex flex-column mb-6">
       <label for="city">Şehir</label>
-      <p-dropdown inputId="city" styleClass="w-20rem" [options]="cities" (onChange)="onCityChange($event.value)" optionLabel="name"
+      <p-dropdown [(ngModel)]="city" inputId="city" styleClass="w-20rem" [options]="cities" (onChange)="onCityChange($event.value)" optionLabel="name"
         optionValue="name" placeholder="Şehir Seçin">
       </p-dropdown>
     </div>
