@@ -129,7 +129,7 @@ export class WeatherComponent implements OnInit {
   }
 
   getDate(currentTime: string) {
-    let formattedDate = new Date(currentTime).toLocaleDateString("TR-tr", {
+    let formattedDate = new Date(parseInt(currentTime)).toLocaleDateString("TR-tr", {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
