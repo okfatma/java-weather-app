@@ -1,0 +1,40 @@
+<h1 class="text-center">Hava Durumu</h1>
+<div class="grid">
+  <div class="col-4 col-offset-2">
+    <div class="field flex flex-column mb-6">
+      <label for="city">Şehir</label>
+      <p-dropdown inputId="city" styleClass="w-20rem" [options]="cities" (onChange)="onCityChange($event.value)" optionLabel="name"
+        optionValue="name" placeholder="Şehir Seçin">
+      </p-dropdown>
+    </div>
+
+    <div class="field flex flex-column">
+      <label for="unit">Sıcaklık Birimi</label>
+      <p-dropdown [(ngModel)]="unit" inputId="unit" styleClass="w-20rem" [options]="units" (onChange)="onUnitChange($event.value)"
+        optionLabel="displayName" optionValue="name" placeholder="Birim Seçin">
+      </p-dropdown>
+    </div>
+
+
+  </div>
+  <div class="col-4" *ngIf="weather">
+    <p-card [header]="weather?.name + ' Hava Durumu'">
+      <div class="font-medium text-gray-600">
+        {{getDate(weather?.currentTime)}}
+      </div>
+      <div class="header font-semibold text-2xl">
+        {{weather?.name.toUpperCase()}}
+      </div>
+      <div class="flex">
+        <div class="icon">
+          <img [src]="'http://openweathermap.org/img/w/' + weather?.weather[0].icon + '.png'" width="96" height="96"
+            alt="weather icon">
+        </div>
+        <div class="flex h-4rem">
+          <span class="text-6xl font-light">{{ weather.main.temp}}</span>
+          <span class="text-2xl mt-2">°{{ unit === 'metric' ? 'C' : 'F'}}</span>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
