@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  weather-db:
+    image: postgres
+    container_name: weather-db
+    volumes:
+      - ./data/weatherdb:/data/db
+      - ./initdb/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_DB: weatherdb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5532:5432"
+
+  weather-app:
+    build: .
+    container_name: weather-app
+    image: weather-app
+    volumes:
+      - ./weather-app:/app/weather-app
+    ports:
+      - "9090:8080"
+    depends_on:
+      - weather-db
+    environment:
+      DB_USERNAME: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_CONNECTION_URL: jdbc:postgresql://weather-db:5432/weatherdb?currentSchema=weather
+      WEATHER_API_KEY: ${WEATHER_API_KEY}
+
+volumes:
+  weatherdb:
+    driver: local

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: weather-app
+  datasource:
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123456}
+    url: ${DB_CONNECTION_URL:jdbc:postgresql://localhost:5532/weatherdb?currentSchema=weather}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+weather:
+  api:
+    key: ${WEATHER_API_KEY:nokey_pleasewriteyourkey}
