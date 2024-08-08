@@ -3,7 +3,7 @@
 
 ## Projeyi çalıştırmak için 
 - Git bash kullanıyorsanız proje dizinindeyken
-1. `cp .env .env.example` 
+1. `cp .env.example .env` 
 2. `docker compose --env-file .env up -d`
 - Windows
 1. Projeyi indirdiğiniz klasördeki .env.example dosyasını .env olacak şekilde kopyalayıp içindeki değerleri güncelleyiniz.
