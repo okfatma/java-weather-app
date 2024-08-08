@@ -15,7 +15,10 @@ export class WeatherService {
     return this.http.get(`${environment.apiUrl}/weather/q?city=${city}&units=${unit}`);
   }
 
-  getForecast(city: string, unit: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/weather/forecast?q=${city}&units=${unit}`);
+  getForecast(city: string, unit: string, startDate: Date, endDate: Date): Observable<any> {
+    const formattedStartDate = startDate.toISOString().split('T')[0];
+    const formattedEndDate = endDate.toISOString().split('T')[0];
+
+    return this.http.get(`${environment.apiUrl}/forecast/q?city=${city}&units=${unit}&startDate=${formattedStartDate}&endDate=${formattedEndDate}`);
   }
 }

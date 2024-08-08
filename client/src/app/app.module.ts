@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
+import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
 import { FormsModule } from '@angular/forms';
 import { NotfoundComponent } from './notfound/notfound.component';
 
@@ -30,6 +32,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     //Primeng modules
     DropdownModule,
     CardModule,
+    CalendarModule,
+    ChartModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

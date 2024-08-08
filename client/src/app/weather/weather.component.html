@@ -1,21 +1,32 @@
 <h1 class="text-center">Hava Durumu</h1>
 <div class="grid">
   <div class="col-4 col-offset-2">
-    <div class="field flex flex-column mb-6">
-      <label for="city">Şehir</label>
-      <p-dropdown [(ngModel)]="city" inputId="city" styleClass="w-20rem" [options]="cities" (onChange)="onCityChange($event.value)" optionLabel="name"
-        optionValue="name" placeholder="Şehir Seçin">
-      </p-dropdown>
-    </div>
+    <p-card header="">
+      <div class="field flex flex-column mb-3">
+        <label for="city">Şehir</label>
+        <p-dropdown [(ngModel)]="city" inputId="city" styleClass="w-20rem" [options]="cities"
+          (onChange)="onCityChange($event.value)" optionLabel="name" optionValue="name" placeholder="Şehir Seçin">
+        </p-dropdown>
+      </div>
 
-    <div class="field flex flex-column">
-      <label for="unit">Sıcaklık Birimi</label>
-      <p-dropdown [(ngModel)]="unit" inputId="unit" styleClass="w-20rem" [options]="units" (onChange)="onUnitChange($event.value)"
-        optionLabel="displayName" optionValue="name" placeholder="Birim Seçin">
-      </p-dropdown>
-    </div>
+      <div class="field flex flex-column mb-6">
+        <label for="unit">Sıcaklık Birimi</label>
+        <p-dropdown [(ngModel)]="unit" inputId="unit" styleClass="w-20rem" [options]="units"
+          (onChange)="onUnitChange($event.value)" optionLabel="displayName" optionValue="name"
+          placeholder="Birim Seçin">
+        </p-dropdown>
+      </div>
 
+      <div class="field flex flex-column">
+        <div class="field flex flex-column">
+          <label for="daterange">Tarih Aralığı</label>
+          <p-calendar [(ngModel)]="dateRange" selectionMode="range" inputId="daterange" styleClass="w-20rem"
+            placeholder="Tarih Aralığı Seçin"></p-calendar>
+        </div>
 
+        <button pButton class="w-20rem" type="button" label="Tahmin Al" (click)="getWeatherForecast()"></button>
+      </div>
+    </p-card>
   </div>
   <div class="col-4" *ngIf="weather">
     <p-card [header]="weather?.name + ' Hava Durumu'">
@@ -36,5 +47,9 @@
         </div>
       </div>
     </p-card>
+    <p-card [header]="weather?.name + ' Hava Durumu Tahmini'" *ngIf="forecast">
+      <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"></p-chart>
+    </p-card>
   </div>
+
 </div>

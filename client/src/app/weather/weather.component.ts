@@ -18,14 +18,44 @@ export class WeatherComponent implements OnInit {
   forecast: any;
   cities: City[];
   units: Unit[];
+  dateRange: any;
+  lineChartData: any;
+  lineChartOptions: any;
 
 
   constructor(private cityService: CityService, private weatherService: WeatherService, @Inject(LOCALE_ID) private locale: string) { }
 
   ngOnInit(): void {
+    this.initChartOptions();
     this.getUnits();
     this.getCities();
     //this.getForecast();
+  }
+
+  initChartOptions() {
+    this.lineChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Temperature Over Time'
+        }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'day'
+          }
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
   }
 
   getUnits() {
@@ -39,7 +69,7 @@ export class WeatherComponent implements OnInit {
   getCities() {
     this.cityService.getCities().subscribe(data => {
       this.cities = data;
-      if(this.cities) {
+      if (this.cities) {
         this.city = this.cities[0].name;
       }
       this.getWeather();
@@ -47,7 +77,7 @@ export class WeatherComponent implements OnInit {
   }
 
   getWeather(): void {
-    if(!this.city) {
+    if (!this.city) {
       console.error("İl seçiniz");
       return;
     }
@@ -57,8 +87,29 @@ export class WeatherComponent implements OnInit {
     });
   }
 
-  getForecast(): void {
-    this.weatherService.getForecast(this.city, this.unit).subscribe(data => {
+  getWeatherForecast(): void {
+    let startDate = this.dateRange[0].setDate(this.dateRange[0].getDate() + 1);;
+    let endDate = this.dateRange[1].setDate(this.dateRange[1].getDate() + 1);;
+    this.weatherService.getForecast(this.city, this.unit, startDate, endDate).subscribe(data => {
+      if(!data) {
+        this.forecast = undefined;
+        console.log("No data found for the selected date range");
+        return;
+      }
+
+      this.lineChartData = {
+        labels: data.map(data => this.getDate(data.time)),
+        datasets: [
+          {
+            label: 'Hava Durumu Tahmini',
+            data: data.map(data => parseFloat(data.temp)),
+            fill: false,
+            borderColor: '#42A5F5',
+            tension: 0.4
+          }
+        ]
+      };
+
       this.forecast = data;
     });
   }
@@ -66,13 +117,11 @@ export class WeatherComponent implements OnInit {
   onCityChange(newCity: string): void {
     this.city = newCity;
     this.getWeather();
-    this.getForecast();
   }
 
   onUnitChange(newUnit: string): void {
     this.unit = newUnit;
     this.getWeather();
-    this.getForecast();
   }
 
   getDate(currentTime: string) {

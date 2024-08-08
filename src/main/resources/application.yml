@@ -11,4 +11,4 @@ spring:
 
 weather:
   api:
-    key: ${WEATHER_API_KEY:nokey_pleasewriteyourkey}
+    key: ${WEATHER_API_KEY:65031981062c290c030f7ce37d70d24c}
