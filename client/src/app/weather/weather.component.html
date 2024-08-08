@@ -21,7 +21,7 @@
         <div class="field flex flex-column">
           <label for="daterange">Tarih Aralığı</label>
           <p-calendar [(ngModel)]="dateRange" selectionMode="range" inputId="daterange" styleClass="w-20rem"
-            placeholder="Tarih Aralığı Seçin"></p-calendar>
+            placeholder="Tarih Aralığı Seçin" dateFormat="dd-mm-yy"></p-calendar>
         </div>
 
         <button pButton class="w-20rem" type="button" label="Tahmin Al" (click)="getWeatherForecast()"></button>

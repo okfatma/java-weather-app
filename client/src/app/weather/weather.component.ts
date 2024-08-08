@@ -88,21 +88,25 @@ export class WeatherComponent implements OnInit {
   }
 
   getWeatherForecast(): void {
-    let startDate = this.dateRange[0].setDate(this.dateRange[0].getDate() + 1);;
-    let endDate = this.dateRange[1].setDate(this.dateRange[1].getDate() + 1);;
+    let startDate = new Date(this.dateRange[0]);
+    startDate.setDate(startDate.getDate() + 1);
+
+    let endDate = new Date(this.dateRange[1]);
+    endDate.setDate(endDate.getDate() + 1);
+
     this.weatherService.getForecast(this.city, this.unit, startDate, endDate).subscribe(data => {
-      if(!data) {
+      if (!data) {
         this.forecast = undefined;
         console.log("No data found for the selected date range");
         return;
       }
 
       this.lineChartData = {
-        labels: data.map(data => this.getDate(data.time)),
+        labels: data.map(forecast => this.getDate(forecast.time)),
         datasets: [
           {
             label: 'Hava Durumu Tahmini',
-            data: data.map(data => parseFloat(data.temp)),
+            data: data.map(forecast => parseFloat(forecast.temp)),
             fill: false,
             borderColor: '#42A5F5',
             tension: 0.4
